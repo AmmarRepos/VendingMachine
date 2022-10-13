@@ -3,9 +3,9 @@ namespace VendingMachine
 {
     public class MachineMoney
     {
-        public static int machineBalance = 0;
-        public static int clientBalance = 0;
-        public static readonly int[] denominations = new int[7] { 1, 5, 10, 20, 100, 500, 1000 };
+        public static int machineBalance;
+        public static int clientBalance;
+        public static readonly int[] denominations = new int[7] {1000, 500, 100, 20, 10, 5, 1};
         private static bool ValidateInput(int input)
         {
             return Array.Exists(denominations, element => element == input);
@@ -20,19 +20,19 @@ namespace VendingMachine
                 machineBalance += amount;
                 clientBalance += amount;
         }
-        public static void DecreaseCash(int amount)
+        public static void DecreaseClientBalance(int amount)
         {
             clientBalance -= amount;
+            Console.WriteLine($"{clientBalance}, {machineBalance}");
         }
         public static void ReturnCash(int amount)
         {
-            Console.Write("Here is the rest of your money:");
-            Array.Sort(denominations);
+            Console.WriteLine("Here is the rest of your money:");
             foreach (int demonation in denominations)
             {
-                while(amount > demonation)
+                while(amount >= demonation)
                 {
-                    Console.Write($"{demonation} , ");
+                    Console.WriteLine($"{demonation}");
                     amount -= demonation;
                     machineBalance -= demonation;
                     clientBalance -= demonation;
