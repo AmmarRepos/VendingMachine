@@ -6,24 +6,28 @@ namespace VendingMachine
         public static int machineBalance;
         public static int clientBalance;
         public static readonly int[] denominations = new int[7] {1000, 500, 100, 20, 10, 5, 1};
-        private static bool ValidateInput(int input)
+        public static bool ValidateInput(int input)
         {
             return Array.Exists(denominations, element => element == input);
         }
-        void SpiteInput()
+        public static void SpiteInput()
         {
             Console.WriteLine("This money do not work here");
         }
         public static void IncreaseCash(int amount)
         {
-            if (ValidateInput(amount))
-                machineBalance += amount;
-                clientBalance += amount;
+            machineBalance += amount;
+            clientBalance += amount;
+            ShowBalances();
         }
         public static void DecreaseClientBalance(int amount)
         {
             clientBalance -= amount;
-            Console.WriteLine($"{clientBalance}, {machineBalance}");
+            ShowBalances();
+        }
+        public static void ShowBalances()
+        {
+            Console.WriteLine($"Client:{clientBalance}, Machine:{machineBalance}");
         }
         public static void ReturnCash(int amount)
         {

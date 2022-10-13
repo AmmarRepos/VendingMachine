@@ -1,13 +1,17 @@
 ﻿namespace VendingMachine
 {
-    public abstract class Product : IProductTypes
+    public abstract class Product
     {
         public string? name;
         public string? info;
         public int price;
         public int quantity;
+        public void RemoveOne()
+        {
+            this.quantity -= 1;
+        }
     }
-    
+
     public class ProductA : Product
     {
         public ProductA(string name, string info, int price, int quantity): base()

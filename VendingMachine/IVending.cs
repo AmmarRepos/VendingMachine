@@ -8,7 +8,8 @@ namespace VendingMachine
         public static void ShowMenu()
         {
             Console.WriteLine("\nPlease enter your choice.");
-            Console.WriteLine("1: Purchase Product A\n2: Show All\n");
+            Console.WriteLine("S: Show avaialbe product\nI: Insert Money\nE: End Transaction");
+            Console.WriteLine("A: Purchase A\nB: Purchase B\nC: Purchase C");
 
             switch (Console.ReadKey().Key)
             {
@@ -37,8 +38,7 @@ namespace VendingMachine
                     ShowAll();
                     ShowMenu();
                     break;
-                case ConsoleKey.D8:
-                case ConsoleKey.NumPad8:
+                case ConsoleKey.E:
                     EndTransction();
                     ShowMenu();
                     break;
@@ -58,6 +58,11 @@ namespace VendingMachine
                 MachineProducts.RemoveProduct(product);
                 MachineMoney.DecreaseClientBalance(product.price);
             }
+            else
+            {
+                MachineMoney.ShowBalances();
+                Console.WriteLine("Please Insert More Money");
+            }
         }
         public static void ShowAll()
         {
@@ -70,7 +75,10 @@ namespace VendingMachine
         {
             Console.Write("\nPlease Insert Money:");
             int money = int.Parse(Console.ReadLine()!);
-            MachineMoney.IncreaseCash(money);
+            if (MachineMoney.ValidateInput(money))
+                MachineMoney.IncreaseCash(money);
+            else
+                MachineMoney.SpiteInput();
         }     
         public static void EndTransction()
         {
