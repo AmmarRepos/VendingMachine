@@ -15,6 +15,13 @@ namespace VendingMachine.Tests
             IVending.Purchase(machine.products, machine.cash, machine.products.productsList[0]);
             Assert.Equal(9, machine.products.productsList[0].quantity);
         }
+        [Fact]
+        public void EmptyMachineTest()
+        {
+            machine.StartMachine();
+            machine.EmptyMachine();
+            Assert.Equal(0, machine.products.productsList.Count!);
+        }
 
         [Fact]
         public void IVendingPurchaseMachineBalance()

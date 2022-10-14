@@ -10,8 +10,6 @@ namespace VendingMachine
         {
             Console.WriteLine($"this is {this.Name}");
             Console.WriteLine("0: Start Machine\n1: empty machine\n9: Shutdown Machine (i.e Program)");
-            StartMachine();
-            ShowMenu();
         }
         public void ShowMenu()
         {
@@ -58,22 +56,24 @@ namespace VendingMachine
             }
             ShowMenu();
         }
-        public void StartMachine()
-        {
-            cash.clientBalance = 0;
-            cash.machineBalance = 0;
-            Product pA = new ProductA("product a", "info a", 10, 10);
-            products.AddProduct(pA, 10);
-            Product pB = new ProductB("product b", "info b", 100, 10);
-            products.AddProduct(pB, 20);
-            Product pC = new ProductC("product c", "info b", 500, 10);
-            products.AddProduct(pC, 30);
-        }
         public void EmptyMachine()
         {
             cash.clientBalance = 0;
             cash.machineBalance = 0;
             products.productsList.Clear();
+
+        }
+
+        public void StartMachine()
+        {
+            cash.clientBalance = 0;
+            cash.machineBalance = 0;
+            Product pA = new ProductA("product a", "info a", 10, 0);
+            products.AddProduct(pA, 10);
+            Product pB = new ProductB("product b", "info b", 100, 0);
+            products.AddProduct(pB, 20);
+            Product pC = new ProductC("product c", "info b", 500, 0);
+            products.AddProduct(pC, 30);
         }
     }
 }

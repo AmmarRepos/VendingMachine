@@ -6,7 +6,9 @@ namespace VendingMachine
     {
         public static void Main()
         {
-            _ = new Machine();
+            Machine machine = new ();
+            machine.StartMachine();
+            machine.ShowMenu();
         }
     }
 }

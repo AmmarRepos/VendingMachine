@@ -4,9 +4,10 @@ namespace VendingMachine
 
     public interface IVending
     {
-        public void StartMachine() { }
         public void EmptyMachine() { }
         public void ShowMenu() { }
+        public void StartMachine() { }
+       
         public static void Purchase(Products machineProducts, Cash machineCash, Product product)
         {
             if (product.price <= machineCash.clientBalance)
