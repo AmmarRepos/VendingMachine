@@ -1,16 +1,68 @@
 ﻿using VendingMachine;
 namespace VendingMachine
 {
-    internal class Machine : IVending
+    public class Machine : IVending
     {
         public string Name = "a standard machine";
+        Products products = new Products();
+        Cash cash = new Cash();
         public Machine()
         {
             Console.WriteLine($"this is {this.Name}");
-            Products products = new Products();
-            Cash cash = new Cash();
-            IVending.StartMachine(products, cash);
-            IVending.ShowMenu(products, cash);
+            Console.WriteLine("0:Start Machine\n9:Shutdown Machine (i.e Program)");
+            StartMachine();
+            ShowMenu();
+        }
+        public void ShowMenu()
+        {
+            Console.WriteLine("\nPlease enter your choice.");
+            Console.WriteLine("S: Show avaialbe product\nI: Insert Money\nA: Purchase A\nB: Purchase B\nC: Purchase C \nE: End Transaction");
+
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.I:
+                    IVending.InsertMoney(cash);
+                    break;
+                case ConsoleKey.D0:
+                case ConsoleKey.NumPad0:
+                    StartMachine();
+                    break;
+                case ConsoleKey.A:
+                    IVending.Purchase(products, cash, products.productsList[0]);
+                    break;
+                case ConsoleKey.B:
+                    IVending.Purchase(products, cash, products.productsList[1]);
+                    break;
+                case ConsoleKey.C:
+                    IVending.Purchase(products, cash, products.productsList[2]);
+                    break;
+                case ConsoleKey.S:
+                    IVending.ShowAll(products);
+                    break;
+                case ConsoleKey.E:
+                    IVending.EndTransction(cash);
+                    break;
+                case ConsoleKey.D9:
+                case ConsoleKey.NumPad9:
+                    Console.WriteLine("\nSHUTTING DOWN ... Good bye");
+                    Environment.Exit(0);
+                    break;
+                default:
+                    break;
+            }
+            ShowMenu();
+        }
+        public void StartMachine()
+        {
+            cash.clientBalance = 0;
+            cash.machineBalance = 0;
+            Product pA = new ProductA("product a", "info a", 10, 0);
+            products.AddProduct(pA, 10);
+            Product pB = new ProductB("product b", "info b", 100, 0);
+            products.AddProduct(pB, 20);
+            Product pC = new ProductC("product c", "info b", 500, 0);
+            products.AddProduct(pC, 30);
+
         }
     }
 }

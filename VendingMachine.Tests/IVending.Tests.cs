@@ -2,7 +2,7 @@ using System.Transactions;
 
 namespace VendingMachine.Tests
 {
-    public class VendingMachineShould
+    public class IVending
     {
         [Fact]
         public void Test1()
