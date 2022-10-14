@@ -1,100 +1,95 @@
 ﻿using VendingMachine;
 namespace VendingMachine
 {
-   
-   public interface IVending
+
+    public interface IVending
     {
-        
-        public static void ShowMenu()
+
+        public static void ShowMenu(Products machineProducts, Cash machineCash)
         {
             Console.WriteLine("\nPlease enter your choice.");
             Console.WriteLine("S: Show avaialbe product\nI: Insert Money\nE: End Transaction");
             Console.WriteLine("A: Purchase A\nB: Purchase B\nC: Purchase C");
-
+            
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.I:
-                    InsertMoney();
-                    ShowMenu();
+                    InsertMoney(machineCash);                    
                     break;
                 case ConsoleKey.D0:
                 case ConsoleKey.NumPad0:
-                    StartMachine();
-                    ShowMenu();
+                    StartMachine(machineProducts, machineCash);
                     break;
                 case ConsoleKey.A:
-                    Purchase(MachineProducts.products[0]);
-                    ShowMenu();
+                    Purchase(machineProducts, machineCash, machineProducts.products[0]);
                     break;
                 case ConsoleKey.B:
-                    Purchase(MachineProducts.products[1]);
-                    ShowMenu();
+                    Purchase(machineProducts, machineCash, machineProducts.products[1]);
                     break;
                 case ConsoleKey.C:
-                    Purchase(MachineProducts.products[2]);
-                    ShowMenu();
+                    Purchase(machineProducts, machineCash, machineProducts.products[2]);
                     break;
                 case ConsoleKey.S:
-                    ShowAll();
-                    ShowMenu();
+                    ShowAll(machineProducts);
                     break;
                 case ConsoleKey.E:
-                    EndTransction();
-                    ShowMenu();
+                    EndTransction(machineCash);
                     break;
                 case ConsoleKey.D9:
                 case ConsoleKey.NumPad9:
-                    Console.WriteLine("SHUTTING DOWN ...");
+                    Console.WriteLine("\nSHUTTING DOWN ... Good bye");
                     break;
                 default:
-                    ShowMenu();
                     break;
             }
+            ShowMenu(machineProducts, machineCash);
         }
-        public static void Purchase(Product product)
+        public static void Purchase(Products machineProducts, Cash machineCash, Product product)
         {
-            if (product.price <= MachineMoney.clientBalance)
+            if (product.price <= machineCash.clientBalance)
             {
-                MachineProducts.RemoveProduct(product);
-                MachineMoney.DecreaseClientBalance(product.price);
+                machineProducts.RemoveProduct(product);
+                machineCash.DecreaseClientBalance(product.price);
             }
             else
             {
-                MachineMoney.ShowBalances();
+                machineCash.ShowBalances();
                 Console.WriteLine("Please Insert More Money");
             }
         }
-        public static void ShowAll()
+        public static void ShowAll(Products machineProducts)
         {
-            foreach (Product product in MachineProducts.products)
+            foreach (Product product in machineProducts.products)
             {
                 Console.WriteLine($"{product.name}, {product.price}, {product.quantity}");
             }
         }
-        public static void InsertMoney()
+        public static void InsertMoney(Cash machineCash)
         {
             Console.Write("\nPlease Insert Money:");
             int money = int.Parse(Console.ReadLine()!);
-            if (MachineMoney.ValidateInput(money))
-                MachineMoney.IncreaseCash(money);
+            if (Cash.ValidateInput(money))
+            { 
+                machineCash.IncreaseCash(money);
+            }
             else
-                MachineMoney.SpiteInput();
+                Cash.SpiteInput();
         }     
-        public static void EndTransction()
+        public static void EndTransction(Cash machineCash)
         {
-            MachineMoney.ReturnCash(MachineMoney.clientBalance);
+            machineCash.ReturnCash();
             Console.WriteLine("WELCOME");
         }
-        public static void StartMachine()
+        public static void StartMachine(Products machineProducts, Cash machineCash)
         {
-            MachineMoney.clientBalance = 0;
-            MachineMoney.machineBalance = 0;
+            machineCash.clientBalance = 0;
+            machineCash.machineBalance = 0;
             Product pA = new ProductA("product a", "info a", 10, 0);
-            MachineProducts.AddProduct(pA, 10);
+            machineProducts.AddProduct(pA, 10);
             Product pB = new ProductB("product b", "info b", 100, 0);
-            MachineProducts.AddProduct(pB, 20);
+            machineProducts.AddProduct(pB, 20);
             Product pC = new ProductC("product c", "info b", 500, 0);
-            MachineProducts.AddProduct(pC, 30);
+            machineProducts.AddProduct(pC, 30);
 
         }
     }

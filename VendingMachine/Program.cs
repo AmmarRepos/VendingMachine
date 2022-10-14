@@ -6,7 +6,7 @@ namespace VendingMachine
     {
         public static void Main()
         {
-            IVending.ShowMenu();
+            _ = new Machine();
         }
     }
 }

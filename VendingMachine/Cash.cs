@@ -1,10 +1,10 @@
 ﻿
 namespace VendingMachine
 {
-    public class MachineMoney
+    public class Cash
     {
-        public static int machineBalance;
-        public static int clientBalance;
+        public int machineBalance;
+        public int clientBalance;
         public static readonly int[] denominations = new int[7] {1000, 500, 100, 20, 10, 5, 1};
         public static bool ValidateInput(int input)
         {
@@ -12,32 +12,31 @@ namespace VendingMachine
         }
         public static void SpiteInput()
         {
-            Console.WriteLine("This money do not work here");
+            Console.WriteLine("\nThis money do not work here");
         }
-        public static void IncreaseCash(int amount)
+        public void IncreaseCash(int amount)
         {
             machineBalance += amount;
             clientBalance += amount;
             ShowBalances();
         }
-        public static void DecreaseClientBalance(int amount)
+        public void DecreaseClientBalance(int amount)
         {
             clientBalance -= amount;
             ShowBalances();
         }
-        public static void ShowBalances()
+        public void ShowBalances()
         {
-            Console.WriteLine($"Client:{clientBalance}, Machine:{machineBalance}");
+            Console.WriteLine($"\nClient:{clientBalance}, Machine:{machineBalance}");
         }
-        public static void ReturnCash(int amount)
+        public void ReturnCash()
         {
-            Console.WriteLine("Here is the rest of your money:");
+            Console.WriteLine("\nHere is the rest of your money:");
             foreach (int demonation in denominations)
             {
-                while(amount >= demonation)
+                while(clientBalance >= demonation)
                 {
                     Console.WriteLine($"{demonation}");
-                    amount -= demonation;
                     machineBalance -= demonation;
                     clientBalance -= demonation;
                 }
