@@ -5,6 +5,7 @@ namespace VendingMachine
     public interface IVending
     {
         public void StartMachine() { }
+        public void EmptyMachine() { }
         public void ShowMenu() { }
         public static void Purchase(Products machineProducts, Cash machineCash, Product product)
         {
@@ -26,14 +27,10 @@ namespace VendingMachine
                 Console.WriteLine($"{product.name}, {product.price}, {product.quantity}");
             }
         }
-        public static void InsertMoney(Cash machineCash)
+        public static void InsertMoney(Cash machineCash, int money)
         {
-            Console.Write("\nPlease Insert Money:");
-            int money = int.Parse(Console.ReadLine()!);
             if (Cash.ValidateInput(money))
-            { 
                 machineCash.IncreaseCash(money);
-            }
             else
                 Cash.SpiteInput();
         }     
@@ -42,6 +39,6 @@ namespace VendingMachine
             machineCash.ReturnCash();
             Console.WriteLine("WELCOME");
         }
-        
+
     }
 }

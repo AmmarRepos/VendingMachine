@@ -4,12 +4,12 @@ namespace VendingMachine
     public class Machine : IVending
     {
         public string Name = "a standard machine";
-        Products products = new Products();
-        Cash cash = new Cash();
+        public Products products = new Products();
+        public Cash cash = new Cash();
         public Machine()
         {
             Console.WriteLine($"this is {this.Name}");
-            Console.WriteLine("0:Start Machine\n9:Shutdown Machine (i.e Program)");
+            Console.WriteLine("0: Start Machine\n1: empty machine\n9: Shutdown Machine (i.e Program)");
             StartMachine();
             ShowMenu();
         }
@@ -21,11 +21,17 @@ namespace VendingMachine
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.I:
-                    IVending.InsertMoney(cash);
+                    Console.Write("\nPlease Insert Money:");
+                    int money = int.Parse(Console.ReadLine()!);
+                    IVending.InsertMoney(cash, money);
                     break;
                 case ConsoleKey.D0:
                 case ConsoleKey.NumPad0:
                     StartMachine();
+                    break;
+                case ConsoleKey.D1:
+                case ConsoleKey.NumPad1:
+                    EmptyMachine();
                     break;
                 case ConsoleKey.A:
                     IVending.Purchase(products, cash, products.productsList[0]);
@@ -56,13 +62,18 @@ namespace VendingMachine
         {
             cash.clientBalance = 0;
             cash.machineBalance = 0;
-            Product pA = new ProductA("product a", "info a", 10, 0);
+            Product pA = new ProductA("product a", "info a", 10, 10);
             products.AddProduct(pA, 10);
-            Product pB = new ProductB("product b", "info b", 100, 0);
+            Product pB = new ProductB("product b", "info b", 100, 10);
             products.AddProduct(pB, 20);
-            Product pC = new ProductC("product c", "info b", 500, 0);
+            Product pC = new ProductC("product c", "info b", 500, 10);
             products.AddProduct(pC, 30);
-
+        }
+        public void EmptyMachine()
+        {
+            cash.clientBalance = 0;
+            cash.machineBalance = 0;
+            products.productsList.Clear();
         }
     }
 }
