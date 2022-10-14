@@ -74,6 +74,12 @@ namespace VendingMachine
             products.AddProduct(pB, 20);
             Product pC = new ProductC("product c", "info b", 500, 0);
             products.AddProduct(pC, 30);
+            Product pAa = new ProductA("product aa", "info aa", 11, 0);
+            products.AddProduct(pA, 10);
+            Product pBb = new ProductB("product bb", "info bb", 550, 0);
+            products.AddProduct(pB, 20);
+            Product pCc = new ProductC("product cc", "info cc", 700, 0);
+            products.AddProduct(pC, 30);
         }
     }
 }

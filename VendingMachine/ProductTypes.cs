@@ -2,10 +2,17 @@
 {
     public abstract class Product
     {
-        public string? name;
+        private string name;
         public string? info;
         public int price;
         public int quantity;
+
+        public string Name { get; set; }
+
+        public Product()
+        {
+            Name = name;
+        }
         public void RemoveOne()
         {
             this.quantity -= 1;
@@ -16,7 +23,7 @@
     {
         public ProductA(string name, string info, int price, int quantity): base()
         {
-            this.name = name;
+            Name = name;
             this.info = info;
             this.quantity = quantity;
             this.price = price;
@@ -26,7 +33,7 @@
     {
         public ProductB(string name, string info, int price, int quantity) : base()
         {
-            this.name = name;
+            Name = name;
             this.info = info;
             this.quantity = quantity;
             this.price = price;
@@ -36,7 +43,7 @@
     {
         public ProductC(string name, string info, int price, int quantity) : base()
         {
-            this.name = name;
+            Name = name;
             this.info = info;
             this.quantity = quantity;
             this.price = price;

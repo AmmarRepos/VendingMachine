@@ -20,12 +20,13 @@ namespace VendingMachine
                 machineCash.ShowBalances();
                 Console.WriteLine("Please Insert More Money");
             }
+            ShowAll(machineProducts);
         }
         public static void ShowAll(Products machineProducts)
         {
             foreach (Product product in machineProducts.productsList)
             {
-                Console.WriteLine($"{product.name}, {product.price}, {product.quantity}");
+                Console.WriteLine($"{product.Name}, {product.price}, {product.quantity}");
             }
         }
         public static void InsertMoney(Cash machineCash, int money)

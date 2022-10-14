@@ -13,7 +13,7 @@
             product.RemoveOne();
             if (product.quantity == 0)
                 productsList.Remove(product);
-            Console.WriteLine($"\nPlease take your {product.name}");
+            Console.WriteLine($"\nPlease take your {product.Name}");
             Console.WriteLine($"{product.info}");
         }
     }
